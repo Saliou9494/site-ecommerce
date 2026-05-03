@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Détail Produit — LumiShop</title>
+  <link rel="stylesheet" href="asset/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    .detail-wrapper {
+      max-width: 1200px;
+      margin: 100px auto 60px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+    }
+    .breadcrumb {
+      max-width: 1200px;
+      margin: 80px auto 0 auto;
+      padding: 0 20px;
+      font-size: 0.9rem;
+      color: #888;
+    }
+    .breadcrumb a { color: #C9A84C; text-decoration: none; }
+    .gallery-main img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+    .gallery-thumbs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .gallery-thumbs img {
+      width: 100%;
+      height: 85px;
+      object-fit: cover;
+      border-radius: 8px;
+      cursor: pointer;
+      border: 3px solid transparent;
+      transition: border 0.2s;
+    }
+    .gallery-thumbs img.active,
+    .gallery-thumbs img:hover {
+      border: 3px solid #C9A84C;
+    }
+    .produit-info .badge {
+      background: #C9A84C;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .produit-info h1 {
+      font-size: 2rem;
+      color: #2C2C2C;
+      margin: 12px 0 8px 0;
+    }
+    .produit-info .prix {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #C9A84C;
+      margin-bottom: 8px;
+    }
+    .produit-info .etoiles {
+      color: #C9A84C;
+      font-size: 1.2rem;
+      margin-bottom: 16px;
+    }
+    .produit-info .description {
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      border-top: 1px solid #eee;
+      padding-top: 16px;
+    }
+    .specs-list {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 24px;
+    }
+    .specs-list li {
+      padding: 8px 0;
+      border-bottom: 1px solid #f0f0f0;
+      color: #444;
+      font-size: 0.95rem;
+    }
+    .quantity-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+    .quantity-wrapper label {
+      font-weight: 600;
+      color: #2C2C2C;
+    }
+    .qty-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #f5f5f5;
+      border-radius: 30px;
+      padding: 4px 12px;
+    }
+    .qty-controls button {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid #C9A84C;
+      background: white;
+      color: #C9A84C;
+      font-size: 1.3rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .qty-controls button:hover {
+      background: #C9A84C;
+      color: white;
+    }
+    .qty-controls span {
+      font-size: 1.2rem;
+      font-weight: 700;
+      min-width: 30px;
+      text-align: center;
+      color: #2C2C2C;
+    }
+    .prix-total-ligne {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #C9A84C;
+      margin-bottom: 20px;
+    }
+    .btn-commander {
+      display: block;
+      width: 100%;
+      background: #25D366;
+      color: white;
+      border: none;
+      padding: 16px;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-bottom: 12px;
+      transition: background 0.3s;
+    }
+    .btn-commander:hover { background: #1da851; }
+    .btn-appeler {
+      display: block;
+      width: 100%;
+      background: #2C2C2C;
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+    .btn-appeler:hover { background: #444; }
+    .produits-similaires {
+      max-width: 1200px;
+      margin: 0 auto 60px auto;
+      padding: 0 20px;
+    }
+    .produits-similaires h2 {
+      font-size: 1.5rem;
+      color: #2C2C2C;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .similaires-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .similaire-card {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      background: white;
+      cursor: pointer;
+      transition: transform 0.3s;
+      text-decoration: none;
+    }
+    .similaire-card:hover { transform: translateY(-5px); }
+    .similaire-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .similaire-card-info {
+      padding: 12px;
+    }
+    .similaire-card-info h4 {
+      font-size: 0.9rem;
+      color: #2C2C2C;
+      margin-bottom: 6px;
+    }
+    .similaire-card-info .prix-s {
+      color: #C9A84C;
+      font-weight: 700;
+    }
+    @media (max-width: 768px) {
+      .detail-wrapper { grid-template-columns: 1fr; gap: 30px; margin-top: 80px; }
+      .similaires-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-main img { height: 280px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BANDEAU DÉFILANT -->
+  <div class="bandeau-top">
+    <div class="bandeau-track">
+      <span>🚚 Livraison -20% sur toute commande &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;</span>
+      <span>✨ Nouveaux lustres disponibles &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;</span>
+      <span>💛 Achetez 2 lustres et bénéficiez de -20% sur la livraison &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;</span>
+      <span>📦 Livraison rapide partout au Sénégal &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;</span>
+      <span>🎁 Offre spéciale : -20% sur la livraison dès aujourd'hui &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;</span>
+      <span>⭐ Plus de 500 clients satisfaits au Sénégal &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;</span>
+      <span>💬 Commandez via WhatsApp en 2 minutes &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;</span>
+      <span>🏆 Qualité premium au meilleur prix &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;</span>
+      <span>🚚 Livraison -20% sur toute commande &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;</span>
+      <span>✨ Nouveaux lustres disponibles &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;</span>
+      <span>💛 Achetez 2 lustres et bénéficiez de -20% sur la livraison &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;</span>
+      <span>📦 Livraison rapide partout au Sénégal &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;</span>
+      <span>🎁 Offre spéciale : -20% sur la livraison dès aujourd'hui &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;</span>
+      <span>⭐ Plus de 500 clients satisfaits au Sénégal &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;</span>
+      <span>💬 Commandez via WhatsApp en 2 minutes &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;</span>
+      <span>🏆 Qualité premium au meilleur prix &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;</span>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-logo">Lumi<span>Shop</span></div>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="produits.html" class="active">Produits</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+      <li><a href="https://wa.me/221778555484" target="_blank" class="nav-whatsapp">💬 WhatsApp</a></li>
+    </ul>
+    <button class="burger" id="burger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="index.html">Accueil</a> &rsaquo;
+    <a href="produits.html">Produits</a> &rsaquo;
+    <span id="bc-nom">Produit</span>
+  </div>
+
+  <!-- CONTENU PRINCIPAL -->
+  <div class="detail-wrapper">
+
+    <!-- COLONNE GAUCHE : GALERIE -->
+    <div class="galerie-col">
+      <div class="gallery-main">
+        <img id="img-principale" src="" alt="">
+      </div>
+      <div class="gallery-thumbs" id="thumbs-container"></div>
+    </div>
+
+    <!-- COLONNE DROITE : INFOS -->
+    <div class="produit-info">
+      <span class="badge" id="p-categorie"></span>
+      <h1 id="p-nom"></h1>
+      <div class="prix" id="p-prix"></div>
+      <div class="etoiles" id="p-note"></div>
+      <div class="rating-summary">
+        <span class="rating-average" id="p-note-text"></span>
+        <span class="rating-reviews" id="p-review-count"></span>
+      </div>
+      <p class="description" id="p-description"></p>
+
+      <ul class="specs-list">
+        <li>💡 Ampoules : <strong id="s-ampoules"></strong></li>
+        <li>📐 Dimensions : <strong id="s-dimensions"></strong></li>
+        <li>🎨 Couleur : <strong id="s-couleur"></strong></li>
+        <li>⚡ Voltage : <strong id="s-voltage"></strong></li>
+        <li>🪵 Matériau : <strong id="s-materiau"></strong></li>
+        <li>🚚 Livraison : <strong id="s-livraison"></strong></li>
+      </ul>
+
+      <!-- QUANTITÉ -->
+      <div class="quantity-wrapper">
+        <label>Quantité :</label>
+        <div class="qty-controls">
+          <button id="moins">−</button>
+          <span id="qty">1</span>
+          <button id="plus">+</button>
+        </div>
+      </div>
+
+      <!-- PRIX TOTAL -->
+      <div class="prix-total-ligne">
+        Total : <span id="total">0</span> FCFA
+      </div>
+
+      <!-- BOUTONS -->
+      <button class="btn-commander" id="btn-wa">
+        💬 Commander sur WhatsApp
+      </button>
+      <a href="tel:+221778555484" class="btn-appeler">
+        📞 Nous appeler
+      </a>
+    </div>
+  </div>
+
+  <!-- PRODUITS SIMILAIRES -->
+  <div class="produits-similaires">
+    <h2>Vous aimerez aussi</h2>
+    <div class="similaires-grid" id="similaires-grid"></div>
+  </div>
+
+  <!-- BOUTON WHATSAPP FLOTTANT -->
+  <a href="https://wa.me/221778555484" target="_blank" class="whatsapp-float">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>© 2025 LumiShop — Tous droits réservés |
+      <a href="https://wa.me/221778555484">+221 77 855 54 84</a>
+    </p>
+  </footer>
+
+  <script>
+  // ================================
+  // BASE DE DONNÉES PRODUITS
+  // ================================
+  var produits = [
+    { id:1,  nom:"Lustre Doré Palace",       prix:85000,  cat:"Lustres Salon",     desc:"Un lustre majestueux aux finitions dorées, conçu pour sublimer votre salon. Ses bras en métal doré et ses pendeloques en cristal créent un jeu de lumière élégant et chaleureux. Parfait pour les grandes pièces de réception.",       imgs:["asset/image/produit-1.jpg","asset/image/produit-2.jpg","asset/image/produit-3.jpg","asset/image/produit-4.jpg"],   amp:"E27 x 6 (non incluses)", dim:"60 cm de diamètre", coul:"Or / Cristal",        volt:"220V", mat:"Métal doré + Cristal",   liv:"Partout au Sénégal", note:5 },
+    { id:2,  nom:"Lustre Bohème Rotin",       prix:62000,  cat:"Lustres Salon",     desc:"Un lustre bohème en rotin naturel, parfait pour apporter une touche chaleureuse et naturelle à votre salon. Style tendance et artisanal, il apporte une ambiance cosy et chaleureuse à votre intérieur.",                              imgs:["asset/image/produit-2.jpg","asset/image/produit-1.jpg","asset/image/produit-3.jpg","asset/image/produit-4.jpg"],   amp:"E27 x 3 (non incluses)", dim:"50 cm de diamètre", coul:"Naturel / Beige",     volt:"220V", mat:"Rotin naturel",           liv:"Partout au Sénégal", note:4 },
+    { id:3,  nom:"Lustre Cristal Élégance",   prix:120000, cat:"Édition Luxe",     desc:"Le summum de l'élégance avec ce lustre en cristal taillé. Chaque pendeloque reflète la lumière pour créer une atmosphère de luxe absolu dans votre salon. Une pièce d'exception pour les intérieurs raffinés.",                       imgs:["asset/image/produit-3.jpg","asset/image/produit-1.jpg","asset/image/produit-2.jpg","asset/image/produit-4.jpg"],   amp:"E14 x 12 (non incluses)",dim:"80 cm de diamètre", coul:"Transparent / Chrome", volt:"220V", mat:"Cristal + Acier chromé",  liv:"Partout au Sénégal", note:5 },
+    { id:4,  nom:"Lustre Industriel Noir",    prix:74000,  cat:"Lustres Salon",     desc:"Un lustre au style industriel moderne avec des finitions noires mate. Parfait pour les intérieurs contemporains qui veulent allier caractère et design. Idéal pour lofts et espaces modernes.",                                        imgs:["asset/image/produit-4.jpg","asset/image/produit-1.jpg","asset/image/produit-2.jpg","asset/image/produit-3.jpg"],   amp:"E27 x 4 (non incluses)", dim:"55 cm de diamètre", coul:"Noir mat",            volt:"220V", mat:"Métal noir mat",          liv:"Partout au Sénégal", note:4 },
+    { id:5,  nom:"Lustre Nordique Blanc",     prix:55000,  cat:"Lustres Chambre",   desc:"Un lustre d'inspiration scandinave aux lignes épurées et à la couleur blanche immaculée. Idéal pour une chambre lumineuse et reposante. Son design minimaliste s'adapte à tous les styles de décoration.",                           imgs:["asset/image/produit-5.jpg","asset/image/produit-6.jpg","asset/image/produit-7.jpg","asset/image/produit-8.jpg"],   amp:"E27 x 3 (non incluses)", dim:"45 cm de diamètre", coul:"Blanc",               volt:"220V", mat:"Métal laqué blanc",       liv:"Partout au Sénégal", note:4 },
+    { id:6,  nom:"Lustre Romantique Rose",    prix:48000,  cat:"Lustres Chambre",   desc:"Un lustre délicat aux tons rosés, parfait pour créer une atmosphère romantique et douce dans votre chambre. Design féminin et élégant qui apporte une touche de poésie à votre intérieur.",                                           imgs:["asset/image/produit-6.jpg","asset/image/produit-5.jpg","asset/image/produit-7.jpg","asset/image/produit-8.jpg"],   amp:"E14 x 6 (non incluses)", dim:"40 cm de diamètre", coul:"Rose poudré",         volt:"220V", mat:"Métal + Tissu",           liv:"Partout au Sénégal", note:4 },
+    { id:7,  nom:"Lustre Minimaliste Gris",   prix:52000,  cat:"Lustres Chambre",   desc:"Un lustre minimaliste aux lignes simples et au coloris gris élégant. S'intègre parfaitement dans tout type de chambre moderne. Sa sobriété en fait un lustre polyvalent et intemporel.",                                             imgs:["asset/image/produit-7.jpg","asset/image/produit-5.jpg","asset/image/produit-6.jpg","asset/image/produit-8.jpg"],   amp:"E27 x 2 (non incluses)", dim:"35 cm de diamètre", coul:"Gris",                volt:"220V", mat:"Métal brossé",            liv:"Partout au Sénégal", note:4 },
+    { id:8,  nom:"Lustre Enfant Étoile",      prix:38000,  cat:"Lustres Enfant",   desc:"Un lustre en forme d'étoile spécialement conçu pour la chambre des enfants. Crée une ambiance magique et féerique que les enfants adorent. Sécurisé et certifié pour une utilisation en chambre d'enfant.",                          imgs:["asset/image/produit-8.jpg","asset/image/produit-5.jpg","asset/image/produit-6.jpg","asset/image/produit-7.jpg"],   amp:"E14 x 5 (non incluses)", dim:"50 cm de diamètre", coul:"Blanc / Jaune",       volt:"220V", mat:"Plastique ABS + Métal",   liv:"Partout au Sénégal", note:5 },
+    { id:9,  nom:"Lampe Design Tentacule",    prix:95000,  cat:"Lampes Design",     desc:"Une lampe design audacieuse aux bras multiples comme des tentacules. Pièce maîtresse de décoration qui attire tous les regards. Un choix audacieux pour les amateurs de design contemporain.",                                        imgs:["asset/image/produit-9.jpg","asset/image/produit-10.jpg","asset/image/produit-11.jpg","asset/image/produit-12.jpg"], amp:"E27 x 8 (non incluses)", dim:"70 cm de diamètre", coul:"Noir / Or",           volt:"220V", mat:"Acier laqué",             liv:"Partout au Sénégal", note:5 },
+    { id:10, nom:"Lampe Arc Dorée",           prix:78000,  cat:"Lampes Design",     desc:"Une lampe sur pied en arc aux finitions dorées. Design contemporain qui apporte une lumière d'ambiance parfaite dans votre salon ou bureau. Élégante et fonctionnelle, elle illumine avec style.",                                    imgs:["asset/image/produit-10.jpg","asset/image/produit-9.jpg","asset/image/produit-11.jpg","asset/image/produit-12.jpg"], amp:"E27 x 1 (non incluse)",  dim:"Hauteur 180 cm",   coul:"Or",                  volt:"220V", mat:"Métal doré",              liv:"Partout au Sénégal", note:4 },
+    { id:11, nom:"Lampe Bubble Transparente", prix:67000,  cat:"Lampes Design",     desc:"Une lampe originale en forme de bulle transparente. Son design unique et moderne apportera une touche futuriste à votre intérieur. Fabriquée en verre soufflé de haute qualité.",                                                    imgs:["asset/image/produit-11.jpg","asset/image/produit-9.jpg","asset/image/produit-10.jpg","asset/image/produit-12.jpg"], amp:"G9 x 1 (non incluse)",   dim:"30 cm de diamètre", coul:"Transparent",        volt:"220V", mat:"Verre soufflé",           liv:"Partout au Sénégal", note:4 },
+    { id:12, nom:"Lampe Vintage Edison",      prix:42000,  cat:"Lampes Design",     desc:"Une lampe au style vintage inspirée des ampoules Edison. Parfaite pour créer une ambiance rétro chaleureuse dans votre café, restaurant ou salon. Un classique indémodable du design.",                                               imgs:["asset/image/produit-12.jpg","asset/image/produit-9.jpg","asset/image/produit-10.jpg","asset/image/produit-11.jpg"], amp:"E27 Edison (incluse)",   dim:"25 cm de hauteur",  coul:"Cuivre / Bois",      volt:"220V", mat:"Cuivre + Bois",           liv:"Partout au Sénégal", note:4 },
+    { id:13, nom:"Applique Marbre Blanc",     prix:35000,  cat:"Appliques Murales", desc:"Une applique murale élégante avec un effet marbre blanc. Apporte une touche de luxe sobre et raffinée à vos murs. Son design épuré la rend adaptable à tous les styles d'intérieur.",                                               imgs:["asset/image/produit-13.jpg","asset/image/produit-14.jpg","asset/image/produit-15.jpg","asset/image/produit-16.jpg"], amp:"G9 x 2 (non incluses)",  dim:"20 x 15 cm",        coul:"Blanc marbre",       volt:"220V", mat:"Résine effet marbre",     liv:"Partout au Sénégal", note:4 },
+    { id:14, nom:"Applique Laiton Classique", prix:41000,  cat:"Appliques Murales", desc:"Une applique murale classique en laiton brossé. Son style intemporel s'adapte à tous les intérieurs, du plus classique au plus contemporain. Une valeur sûre pour votre décoration murale.",                                         imgs:["asset/image/produit-14.jpg","asset/image/produit-13.jpg","asset/image/produit-15.jpg","asset/image/produit-16.jpg"], amp:"E14 x 2 (non incluses)", dim:"25 x 20 cm",        coul:"Laiton brossé",      volt:"220V", mat:"Laiton",                  liv:"Partout au Sénégal", note:5 },
+    { id:15, nom:"Applique Ronde Noire",      prix:29000,  cat:"Appliques Murales", desc:"Une applique murale ronde au design minimaliste noir. Parfaite pour un éclairage directionnel élégant dans un couloir, salon ou chambre. Sa compacité la rend facile à installer partout.",                                           imgs:["asset/image/produit-15.jpg","asset/image/produit-13.jpg","asset/image/produit-14.jpg","asset/image/produit-16.jpg"], amp:"GU10 x 1 (non incluse)", dim:"15 cm de diamètre", coul:"Noir mat",            volt:"220V", mat:"Aluminium noir",          liv:"Partout au Sénégal", note:4 },
+    { id:16, nom:"Applique Bambou Naturel",   prix:33000,  cat:"Appliques Murales", desc:"Une applique murale artisanale en bambou naturel. Apporte une touche zen et naturelle à votre intérieur tout en diffusant une lumière douce et apaisante. Fabriquée artisanalement par des artisans locaux.",                        imgs:["asset/image/produit-16.jpg","asset/image/produit-13.jpg","asset/image/produit-14.jpg","asset/image/produit-15.jpg"], amp:"E27 x 1 (non incluse)",  dim:"30 x 25 cm",        coul:"Naturel / Beige",     volt:"220V", mat:"Bambou naturel",          liv:"Partout au Sénégal", note:4 },
+    { id:17, nom:"Lustre Cascade Cristal",        prix:135000, cat:"Lustres Salon",     desc:"Un lustre spectaculaire en cascade de cristaux taillés. Chaque niveau reflète la lumière pour créer un effet waterfall lumineux absolument saisissant dans votre salon.", imgs:["asset/image/produit-17.jpg","asset/image/produit-18.jpg","asset/image/produit-19.jpg","asset/image/produit-20.jpg"], amp:"E14 x 16 (non incluses)", dim:"90 cm de diamètre", coul:"Transparent / Or",     volt:"220V", mat:"Cristal + Métal doré",    liv:"Partout au Sénégal", note:5 },
+    { id:18, nom:"Lustre Spirale Moderne",         prix:98000,  cat:"Lustres Salon",     desc:"Un lustre en spirale au design contemporain audacieux. Ses bras en acier brossé s'enroulent élégamment pour créer une sculpture lumineuse unique au plafond de votre salon.", imgs:["asset/image/produit-18.jpg","asset/image/produit-17.jpg","asset/image/produit-19.jpg","asset/image/produit-20.jpg"], amp:"G9 x 10 (non incluses)",  dim:"75 cm de diamètre", coul:"Acier brossé / Blanc", volt:"220V", mat:"Acier inoxydable",        liv:"Partout au Sénégal", note:5 },
+    { id:19, nom:"Lustre Empire Doré",             prix:145000, cat:"Édition Luxe",     desc:"Un lustre d'inspiration Empire aux proportions majestueuses. Ses ornements dorés et ses multiples bras en font une pièce de collection qui transforme votre salon en palais.", imgs:["asset/image/produit-19.jpg","asset/image/produit-17.jpg","asset/image/produit-18.jpg","asset/image/produit-20.jpg"], amp:"E14 x 20 (non incluses)", dim:"100 cm de diamètre", coul:"Or antique",           volt:"220V", mat:"Bronze doré + Cristal",  liv:"Partout au Sénégal", note:5 },
+    { id:20, nom:"Lustre Sputnik Argent",          prix:88000,  cat:"Lustres Salon",     desc:"Un lustre Sputnik aux bras multiples en métal argenté. Son design rétro-futuriste inspiré de l'ère spatiale apporte une touche artistique et avant-gardiste à votre intérieur.", imgs:["asset/image/produit-20.jpg","asset/image/produit-17.jpg","asset/image/produit-18.jpg","asset/image/produit-19.jpg"], amp:"E27 x 12 (non incluses)", dim:"80 cm de diamètre", coul:"Argent",               volt:"220V", mat:"Métal argenté",          liv:"Partout au Sénégal", note:4 },
+    { id:21, nom:"Lustre Bohème Macramé",          prix:58000,  cat:"Lustres Salon",     desc:"Un lustre artisanal en macramé tressé à la main. Son style bohème chic apporte une touche naturelle et chaleureuse parfaite pour un salon cosy et tendance.", imgs:["asset/image/produit-21.jpg","asset/image/produit-22.jpg","asset/image/produit-23.jpg","asset/image/produit-24.jpg"], amp:"E27 x 2 (non incluses)",  dim:"55 cm de diamètre", coul:"Naturel / Beige",     volt:"220V", mat:"Coton + Bois",           liv:"Partout au Sénégal", note:4 },
+    { id:22, nom:"Lustre Géométrique Cuivre",      prix:112000, cat:"Lustres Salon",     desc:"Un lustre aux formes géométriques en cuivre brossé. Ses angles nets et ses reflets cuivrés créent un jeu visuel fascinant qui devient le point focal de votre pièce.", imgs:["asset/image/produit-22.jpg","asset/image/produit-21.jpg","asset/image/produit-23.jpg","asset/image/produit-24.jpg"], amp:"E27 x 6 (non incluses)",  dim:"65 cm de diamètre", coul:"Cuivre brossé",       volt:"220V", mat:"Cuivre + Fer forgé",     liv:"Partout au Sénégal", note:5 },
+    { id:23, nom:"Lustre Murano Coloré",           prix:168000, cat:"Édition Luxe",     desc:"Un lustre en verre de Murano soufflé à la main aux couleurs vibrantes. Chaque pièce est unique car réalisée par des artisans verriers italiens selon des techniques ancestrales.", imgs:["asset/image/produit-23.jpg","asset/image/produit-21.jpg","asset/image/produit-22.jpg","asset/image/produit-24.jpg"], amp:"G4 x 8 (non incluses)",   dim:"70 cm de diamètre", coul:"Multicolore",          volt:"220V", mat:"Verre de Murano",        liv:"Partout au Sénégal", note:5 },
+    { id:24, nom:"Lustre Contemporain Noir",       prix:79000,  cat:"Lustres Salon",     desc:"Un lustre au design contemporain épuré en métal noir mat. Ses lignes droites et sa finition mate en font un choix parfait pour les intérieurs modernes et minimalistes.", imgs:["asset/image/produit-24.jpg","asset/image/produit-21.jpg","asset/image/produit-22.jpg","asset/image/produit-23.jpg"], amp:"E27 x 5 (non incluses)",  dim:"60 cm de diamètre", coul:"Noir mat",             volt:"220V", mat:"Fer forgé noir",         liv:"Partout au Sénégal", note:4 },
+    { id:25, nom:"Lustre Nuage Blanc",             prix:72000,  cat:"Lustres Chambre",   desc:"Un lustre en forme de nuage en tissu blanc moelleux. Il diffuse une lumière douce et apaisante parfaite pour créer une atmosphère onirique et reposante dans votre chambre.", imgs:["asset/image/produit-25.jpg","asset/image/produit-26.jpg","asset/image/produit-27.jpg","asset/image/produit-28.jpg"], amp:"E27 x 3 (non incluses)",  dim:"50 cm de diamètre", coul:"Blanc pur",            volt:"220V", mat:"Tissu + Métal",          liv:"Partout au Sénégal", note:5 },
+    { id:26, nom:"Lustre Lune Dorée",              prix:64000,  cat:"Lustres Chambre",   desc:"Un lustre en forme de lune aux reflets dorés. Son design poétique et romantique crée une ambiance lunaire et magique idéale pour une chambre adulte ou une suite parentale.", imgs:["asset/image/produit-26.jpg","asset/image/produit-25.jpg","asset/image/produit-27.jpg","asset/image/produit-28.jpg"], amp:"G9 x 4 (non incluses)",   dim:"45 cm de diamètre", coul:"Or / Blanc",           volt:"220V", mat:"Métal doré + Verre",     liv:"Partout au Sénégal", note:4 },
+    { id:27, nom:"Lustre Fleur de Cerisier",       prix:56000,  cat:"Lustres Chambre",   desc:"Un lustre délicat en forme de fleur de cerisier en tissu rose poudré. Ses pétales en soie artificielle diffusent une lumière tamisée et romantique pour votre chambre.", imgs:["asset/image/produit-27.jpg","asset/image/produit-25.jpg","asset/image/produit-26.jpg","asset/image/produit-28.jpg"], amp:"E14 x 6 (non incluses)",  dim:"55 cm de diamètre", coul:"Rose poudré / Blanc",  volt:"220V", mat:"Tissu soie + Métal",     liv:"Partout au Sénégal", note:4 },
+    { id:28, nom:"Lustre Rondelle Moderne",        prix:49000,  cat:"Lustres Chambre",   desc:"Un lustre design en forme de rondelle aux anneaux concentriques. Son style épuré et moderne s'adapte parfaitement à toutes les chambres contemporaines.", imgs:["asset/image/produit-28.jpg","asset/image/produit-25.jpg","asset/image/produit-26.jpg","asset/image/produit-27.jpg"], amp:"LED intégré",             dim:"40 cm de diamètre", coul:"Blanc / Chrome",       volt:"220V", mat:"Aluminium + Acrylique",  liv:"Partout au Sénégal", note:4 },
+    { id:29, nom:"Lustre Papillon Féerique",       prix:44000,  cat:"Lustres Enfant",   desc:"Un lustre enchanté aux papillons colorés pour chambre d'enfant. Chaque papillon en résine peinte à la main crée une décoration féerique qui fait rêver les petits.", imgs:["asset/image/produit-29.jpg","asset/image/produit-30.jpg","asset/image/produit-31.jpg","asset/image/produit-32.jpg"], amp:"E14 x 4 (non incluses)",  dim:"45 cm de diamètre", coul:"Multicolore pastel",   volt:"220V", mat:"Résine + Métal",         liv:"Partout au Sénégal", note:5 },
+    { id:30, nom:"Lustre Jungle Enfant",           prix:39000,  cat:"Lustres Enfant",   desc:"Un lustre thème jungle avec des animaux adorables pour la chambre de votre enfant. Girafes, éléphants et lions illuminent la nuit de votre petit aventurier.", imgs:["asset/image/produit-30.jpg","asset/image/produit-29.jpg","asset/image/produit-31.jpg","asset/image/produit-32.jpg"], amp:"E14 x 3 (non incluses)",  dim:"40 cm de diamètre", coul:"Vert / Jaune / Orange", volt:"220V", mat:"Plastique ABS + Métal",  liv:"Partout au Sénégal", note:5 },
+    { id:31, nom:"Lustre Princesse Rose",          prix:42000,  cat:"Lustres Enfant",   desc:"Un lustre pour petite princesse avec des cristaux roses et des éléments dorés. Il transforme la chambre de votre fille en véritable château de conte de fées.", imgs:["asset/image/produit-31.jpg","asset/image/produit-29.jpg","asset/image/produit-30.jpg","asset/image/produit-32.jpg"], amp:"E14 x 5 (non incluses)",  dim:"42 cm de diamètre", coul:"Rose / Or",            volt:"220V", mat:"Cristal rose + Métal",   liv:"Partout au Sénégal", note:5 },
+    { id:32, nom:"Lustre Zen Bambou Chambre",      prix:47000,  cat:"Lustres Chambre",   desc:"Un lustre zen en bambou tressé pour chambre adulte. Sa lumière filtrée à travers le bambou naturel crée une ambiance spa relaxante et apaisante pour un sommeil parfait.", imgs:["asset/image/produit-32.jpg","asset/image/produit-29.jpg","asset/image/produit-30.jpg","asset/image/produit-31.jpg"], amp:"E27 x 2 (non incluses)",  dim:"35 cm de diamètre", coul:"Naturel / Miel",       volt:"220V", mat:"Bambou naturel",         liv:"Partout au Sénégal", note:4 },
+    { id:33, nom:"Lampe Sculpture Métal",          prix:105000, cat:"Lampes Design",     desc:"Une lampe sculptée en métal forgé à la main. Véritable œuvre d'art fonctionnelle, elle devient la pièce maîtresse de votre décoration intérieure et attire tous les regards.", imgs:["asset/image/produit-33.jpg","asset/image/produit-34.jpg","asset/image/produit-35.jpg","asset/image/produit-36.jpg"], amp:"E27 x 1 (non incluse)",  dim:"Hauteur 160 cm",    coul:"Noir / Or",            volt:"220V", mat:"Fer forgé artisanal",    liv:"Partout au Sénégal", note:5 },
+    { id:34, nom:"Lampe Organique Bois",           prix:88000,  cat:"Lampes Design",     desc:"Une lampe aux formes organiques sculptées dans du bois massif. Son design naturel et chaleureux apporte une touche d'authenticité et de sérénité à votre intérieur moderne.", imgs:["asset/image/produit-34.jpg","asset/image/produit-33.jpg","asset/image/produit-35.jpg","asset/image/produit-36.jpg"], amp:"E27 x 1 (non incluse)",  dim:"Hauteur 170 cm",    coul:"Bois naturel",         volt:"220V", mat:"Bois massif de teck",    liv:"Partout au Sénégal", note:4 },
+    { id:35, nom:"Lampe Totem Africain",           prix:92000,  cat:"Lampes Design",     desc:"Une lampe totem d'inspiration africaine sculptée dans du bois exotique. Elle rend hommage à l'art africain traditionnel tout en s'intégrant parfaitement dans un intérieur contemporain.", imgs:["asset/image/produit-35.jpg","asset/image/produit-33.jpg","asset/image/produit-34.jpg","asset/image/produit-36.jpg"], amp:"E27 x 1 (non incluse)",  dim:"Hauteur 165 cm",    coul:"Bois foncé / Or",      volt:"220V", mat:"Bois exotique + Cuivre", liv:"Partout au Sénégal", note:5 },
+    { id:36, nom:"Lampe Néon LED Design",          prix:75000,  cat:"Lampes Design",     desc:"Une lampe néon LED au design graphique moderne. Ses tubes lumineux flexibles peuvent former des formes personnalisées pour une décoration unique et tendance dans votre espace.", imgs:["asset/image/produit-36.jpg","asset/image/produit-33.jpg","asset/image/produit-34.jpg","asset/image/produit-35.jpg"], amp:"LED intégré",             dim:"60 x 40 cm",        coul:"Blanc chaud / RGB",    volt:"220V", mat:"Tube LED + Acrylique",   liv:"Partout au Sénégal", note:4 },
+    { id:37, nom:"Lampe Champignon Vintage",       prix:58000,  cat:"Lampes Design",     desc:"Une lampe en forme de champignon aux tons chauds vintage. Son abat-jour arrondi en verre ambré diffuse une lumière dorée et chaleureuse parfaite pour une ambiance cosy.", imgs:["asset/image/produit-37.jpg","asset/image/produit-38.jpg","asset/image/produit-39.jpg","asset/image/produit-40.jpg"], amp:"E27 x 1 (non incluse)",  dim:"Hauteur 45 cm",     coul:"Ambre / Cuivre",       volt:"220V", mat:"Verre ambré + Cuivre",   liv:"Partout au Sénégal", note:4 },
+    { id:38, nom:"Lampe Industrielle Loft",        prix:68000,  cat:"Lampes Design",     desc:"Une lampe sur pied au style industriel loft avec des éléments en tuyauterie apparente. Parfaite pour les espaces de travail créatifs et les intérieurs au style urbain.", imgs:["asset/image/produit-38.jpg","asset/image/produit-37.jpg","asset/image/produit-39.jpg","asset/image/produit-40.jpg"], amp:"E27 x 2 (non incluses)", dim:"Hauteur 175 cm",    coul:"Noir / Cuivre rouillé", volt:"220V", mat:"Fer noir + Cuivre",      liv:"Partout au Sénégal", note:4 },
+    { id:39, nom:"Lampe Origami Papier",           prix:52000,  cat:"Lampes Design",     desc:"Une lampe aux formes origami en papier japonais washi. Sa structure géométrique inspirée de l'art du pliage japonais diffuse une lumière douce et tamisée d'une grande poésie.", imgs:["asset/image/produit-39.jpg","asset/image/produit-37.jpg","asset/image/produit-38.jpg","asset/image/produit-40.jpg"], amp:"E27 x 1 (non incluse)",  dim:"40 cm de diamètre", coul:"Blanc / Naturel",      volt:"220V", mat:"Papier washi + Bambou",  liv:"Partout au Sénégal", note:4 },
+    { id:40, nom:"Lampe Corail Céramique",         prix:82000,  cat:"Lampes Design",     desc:"Une lampe en céramique aux formes inspirées des coraux marins. Sa glaçure artisanale crée des effets de couleur uniques qui font de chaque pièce une création originale.", imgs:["asset/image/produit-40.jpg","asset/image/produit-37.jpg","asset/image/produit-38.jpg","asset/image/produit-39.jpg"], amp:"E27 x 1 (non incluse)",  dim:"Hauteur 55 cm",     coul:"Bleu océan / Blanc",   volt:"220V", mat:"Céramique artisanale",   liv:"Partout au Sénégal", note:5 },
+    { id:41, nom:"Applique Soleil Doré",           prix:45000,  cat:"Appliques Murales", desc:"Une applique murale en forme de soleil aux rayons dorés. Elle illumine votre mur d'une lumière chaleureuse et apporte une touche de joie et de vitalité à votre décoration.", imgs:["asset/image/produit-41.jpg","asset/image/produit-42.jpg","asset/image/produit-43.jpg","asset/image/produit-44.jpg"], amp:"G9 x 2 (non incluses)",  dim:"35 cm de diamètre", coul:"Or brillant",          volt:"220V", mat:"Métal doré",             liv:"Partout au Sénégal", note:5 },
+    { id:42, nom:"Applique Art Déco Noir",         prix:52000,  cat:"Appliques Murales", desc:"Une applique murale au style Art Déco avec des motifs géométriques en laiton noir. Son design des années 20 apporte une élégance intemporelle à vos murs.", imgs:["asset/image/produit-42.jpg","asset/image/produit-41.jpg","asset/image/produit-43.jpg","asset/image/produit-44.jpg"], amp:"E14 x 2 (non incluses)", dim:"30 x 25 cm",        coul:"Noir / Or",            volt:"220V", mat:"Laiton noir + Verre",    liv:"Partout au Sénégal", note:4 },
+    { id:43, nom:"Applique Numérique LED",         prix:48000,  cat:"Appliques Murales", desc:"Une applique LED moderne avec variation de luminosité et de couleur. Compatible avec les assistants vocaux, elle s'intègre parfaitement dans une maison connectée.", imgs:["asset/image/produit-43.jpg","asset/image/produit-41.jpg","asset/image/produit-42.jpg","asset/image/produit-44.jpg"], amp:"LED intégré",             dim:"25 x 15 cm",        coul:"Blanc / RGB",          volt:"220V", mat:"Aluminium + Acrylique",  liv:"Partout au Sénégal", note:4 },
+    { id:44, nom:"Applique Plume Dorée",           prix:38000,  cat:"Appliques Murales", desc:"Une applique délicate en forme de plume dorée. Sa légèreté visuelle et ses reflets dorés créent une décoration murale poétique et féminine d'une grande élégance.", imgs:["asset/image/produit-44.jpg","asset/image/produit-41.jpg","asset/image/produit-42.jpg","asset/image/produit-43.jpg"], amp:"G9 x 1 (non incluse)",   dim:"20 x 35 cm",        coul:"Or / Blanc",           volt:"220V", mat:"Métal doré",             liv:"Partout au Sénégal", note:4 },
+    { id:45, nom:"Applique Industrielle Tuyau",    prix:36000,  cat:"Appliques Murales", desc:"Une applique murale au style industriel avec des tuyaux en fonte apparents. Son caractère brut et authentique apporte une touche urbaine et masculine à vos espaces.", imgs:["asset/image/produit-45.jpg","asset/image/produit-46.jpg","asset/image/produit-47.jpg","asset/image/produit-48.jpg"], amp:"E27 x 1 (non incluse)",  dim:"30 x 20 cm",        coul:"Noir / Rouille",       volt:"220V", mat:"Fonte + Fer",            liv:"Partout au Sénégal", note:4 },
+    { id:46, nom:"Applique Miroir Glamour",        prix:58000,  cat:"Appliques Murales", desc:"Une applique murale entourée d'un cadre miroir glamour. Elle double visuellement l'espace et apporte une touche hollywoodienne sophistiquée à votre chambre ou salle de bain.", imgs:["asset/image/produit-46.jpg","asset/image/produit-45.jpg","asset/image/produit-47.jpg","asset/image/produit-48.jpg"], amp:"G9 x 4 (non incluses)",  dim:"40 x 50 cm",        coul:"Chrome / Miroir",      volt:"220V", mat:"Verre miroir + Chrome",  liv:"Partout au Sénégal", note:5 },
+    { id:47, nom:"Applique Orientale Cuivrée",     prix:44000,  cat:"Appliques Murales", desc:"Une applique d'inspiration orientale en cuivre martelé avec des motifs géométriques arabesques. Elle projette des motifs lumineux fascinants sur vos murs au coucher du soleil.", imgs:["asset/image/produit-47.jpg","asset/image/produit-45.jpg","asset/image/produit-46.jpg","asset/image/produit-48.jpg"], amp:"E14 x 1 (non incluse)",  dim:"25 x 30 cm",        coul:"Cuivre / Bronze",      volt:"220V", mat:"Cuivre martelé",         liv:"Partout au Sénégal", note:5 },
+    { id:48, nom:"Applique Scandinave Bois",       prix:32000,  cat:"Appliques Murales", desc:"Une applique murale scandinave en bois de pin naturel. Son design épuré et chaleureux s'intègre parfaitement dans un intérieur hygge pour une ambiance cocooning.", imgs:["asset/image/produit-48.jpg","asset/image/produit-45.jpg","asset/image/produit-46.jpg","asset/image/produit-47.jpg"], amp:"E27 x 1 (non incluse)",  dim:"20 x 25 cm",        coul:"Bois naturel / Blanc", volt:"220V", mat:"Pin naturel + Métal",    liv:"Partout au Sénégal", note:4 },
+    { id:49, nom:"Lustre Baroque Argent",          prix:158000, cat:"Édition Luxe",     desc:"Un lustre baroque aux ornements en argent massif et aux pendeloques en cristal swarovski. Une pièce d'exception qui transforme votre salon en salle de réception royale.", imgs:["asset/image/produit-49.jpg","asset/image/produit-50.jpg","asset/image/produit-51.jpg","asset/image/produit-52.jpg"], amp:"E14 x 24 (non incluses)", dim:"110 cm de diamètre",coul:"Argent / Cristal",     volt:"220V", mat:"Argent + Cristal Swarovski", liv:"Partout au Sénégal", note:5 },
+    { id:50, nom:"Lustre Toile Araignée",          prix:76000,  cat:"Lustres Salon",     desc:"Un lustre au design toile d'araignée en métal noir laqué. Son motif graphique audacieux crée un effet décoratif fort et contemporain qui marque les esprits.", imgs:["asset/image/produit-50.jpg","asset/image/produit-49.jpg","asset/image/produit-51.jpg","asset/image/produit-52.jpg"], amp:"E27 x 6 (non incluses)",  dim:"70 cm de diamètre", coul:"Noir laqué",           volt:"220V", mat:"Métal noir laqué",       liv:"Partout au Sénégal", note:4 },
+    { id:51, nom:"Lustre Grappe Raisin",           prix:118000, cat:"Édition Luxe",     desc:"Un lustre en forme de grappe de raisin avec des sphères en verre soufflé multicolores. Chaque boule capte et diffuse la lumière pour créer un effet lumineux envoûtant.", imgs:["asset/image/produit-51.jpg","asset/image/produit-49.jpg","asset/image/produit-50.jpg","asset/image/produit-52.jpg"], amp:"G4 x 20 (non incluses)",  dim:"60 cm de diamètre", coul:"Ambré / Transparent",  volt:"220V", mat:"Verre soufflé + Laiton",  liv:"Partout au Sénégal", note:5 },
+    { id:52, nom:"Lustre Hexagonal Design",        prix:94000,  cat:"Lustres Salon",     desc:"Un lustre composé de modules hexagonaux en métal doré interconnectés. Sa géométrie parfaite et ses angles précis en font une pièce architecturale suspendue dans votre salon.", imgs:["asset/image/produit-52.jpg","asset/image/produit-49.jpg","asset/image/produit-50.jpg","asset/image/produit-51.jpg"], amp:"G9 x 8 (non incluses)",   dim:"80 cm de diamètre", coul:"Or mat",               volt:"220V", mat:"Métal doré mat",         liv:"Partout au Sénégal", note:4 },
+    { id:53, nom:"Lustre Velours Champagne",       prix:86000,  cat:"Lustres Chambre",   desc:"Un lustre aux abat-jours en velours champagne pour une chambre luxueuse. Le velours diffuse une lumière tamisée et chaude qui crée une atmosphère cocooning et raffinée.", imgs:["asset/image/produit-53.jpg","asset/image/produit-54.jpg","asset/image/produit-55.jpg","asset/image/produit-56.jpg"], amp:"E14 x 8 (non incluses)",  dim:"65 cm de diamètre", coul:"Champagne / Or",       volt:"220V", mat:"Velours + Métal doré",   liv:"Partout au Sénégal", note:5 },
+    { id:54, nom:"Lustre Coquillage Naturel",      prix:62000,  cat:"Lustres Chambre",   desc:"Un lustre artisanal orné de vrais coquillages collectés sur les plages sénégalaises. Unique et authentique, il apporte l'esprit de la mer et du Sénégal dans votre chambre.", imgs:["asset/image/produit-54.jpg","asset/image/produit-53.jpg","asset/image/produit-55.jpg","asset/image/produit-56.jpg"], amp:"E27 x 3 (non incluses)",  dim:"50 cm de diamètre", coul:"Naturel / Beige",     volt:"220V", mat:"Coquillages + Rotin",    liv:"Partout au Sénégal", note:5 },
+    { id:55, nom:"Lampe Sablier Luxe",             prix:118000, cat:"Lampes Design",     desc:"Une lampe en forme de sablier avec deux sphères en verre soufflé remplies de sable doré. Son design sculptural unique en fait une œuvre d'art lumineuse pour votre salon.", imgs:["asset/image/produit-55.jpg","asset/image/produit-53.jpg","asset/image/produit-54.jpg","asset/image/produit-56.jpg"], amp:"G9 x 2 (non incluses)",  dim:"Hauteur 80 cm",     coul:"Or / Transparent",     volt:"220V", mat:"Verre soufflé + Métal",  liv:"Partout au Sénégal", note:5 },
+    { id:56, nom:"Applique Feuille Tropicale",     prix:39000,  cat:"Appliques Murales", desc:"Une applique murale en forme de feuille tropicale en métal vert forêt. Elle apporte une touche de nature luxuriante et une ambiance tropicale chic à vos espaces intérieurs.", imgs:["asset/image/produit-56.jpg","asset/image/produit-53.jpg","asset/image/produit-54.jpg","asset/image/produit-55.jpg"], amp:"G9 x 1 (non incluse)",   dim:"25 x 40 cm",        coul:"Vert forêt / Or",      volt:"220V", mat:"Métal peint",            liv:"Partout au Sénégal", note:4 },
+    { id:57, nom:"Lustre Table à Manger Cristal",   prix:96000,  cat:"Lustres Salle à Manger", desc:"Un lustre spécialement conçu pour illuminer votre table à manger. Sa hauteur ajustable et sa lumière directionnelle mettent en valeur vos repas et créent une atmosphère chaleureuse pour vos dîners en famille ou entre amis.", imgs:["asset/image/produit-17.jpg","asset/image/produit-18.jpg","asset/image/produit-19.jpg","asset/image/produit-20.jpg"], amp:"E14 x 8 (non incluses)",  dim:"70 cm de diamètre", coul:"Transparent / Chrome",  volt:"220V", mat:"Cristal + Chrome",       liv:"Partout au Sénégal", note:5 },
+    { id:58, nom:"Lustre Ovale Salle à Manger",     prix:78000,  cat:"Lustres Salle à Manger", desc:"Un lustre ovale allongé parfait pour les grandes tables à manger rectangulaires. Sa forme suit la longueur de la table pour un éclairage uniforme et élégant sur toute la surface.", imgs:["asset/image/produit-18.jpg","asset/image/produit-17.jpg","asset/image/produit-19.jpg","asset/image/produit-20.jpg"], amp:"E27 x 6 (non incluses)",  dim:"90 x 30 cm",        coul:"Or / Noir",             volt:"220V", mat:"Métal doré + Verre",     liv:"Partout au Sénégal", note:4 },
+    { id:59, nom:"Lustre Industriel Salle à Manger", prix:65000,  cat:"Lustres Salle à Manger", desc:"Un lustre industriel avec des abat-jours individuels orientables au-dessus de votre table à manger. Chaque ampoule éclaire une zone précise pour un effet bistrot chic et convivial.", imgs:["asset/image/produit-19.jpg","asset/image/produit-17.jpg","asset/image/produit-18.jpg","asset/image/produit-20.jpg"], amp:"E27 x 5 (non incluses)",  dim:"100 x 25 cm",       coul:"Noir / Cuivre",         volt:"220V", mat:"Métal noir + Cuivre",    liv:"Partout au Sénégal", note:4 },
+    { id:60, nom:"Lustre Bureau Professionnel",      prix:58000,  cat:"Lustres Bureau",         desc:"Un lustre épuré et fonctionnel conçu pour les bureaux et espaces de travail. Sa lumière blanche froide favorise la concentration et réduit la fatigue oculaire lors de longues heures de travail.", imgs:["asset/image/produit-20.jpg","asset/image/produit-17.jpg","asset/image/produit-18.jpg","asset/image/produit-19.jpg"], amp:"LED intégré",             dim:"60 cm de diamètre", coul:"Blanc / Argent",        volt:"220V", mat:"Aluminium + Acrylique",  liv:"Partout au Sénégal", note:4 },
+    { id:61, nom:"Lustre Bureau Créatif",            prix:72000,  cat:"Lustres Bureau",         desc:"Un lustre design pour bureau créatif avec des bras articulés orientables. Parfait pour les agences créatives et home offices qui veulent allier style et fonctionnalité.", imgs:["asset/image/produit-21.jpg","asset/image/produit-22.jpg","asset/image/produit-23.jpg","asset/image/produit-24.jpg"], amp:"E27 x 4 (non incluses)",  dim:"55 cm de diamètre", coul:"Noir mat / Or",         volt:"220V", mat:"Métal articulé",         liv:"Partout au Sénégal", note:4 },
+    { id:62, nom:"Lustre Bureau Minimaliste",        prix:48000,  cat:"Lustres Bureau",         desc:"Un lustre minimaliste et discret pour bureau à domicile. Son design sobre ne distrait pas et apporte exactement la quantité de lumière nécessaire pour travailler efficacement.", imgs:["asset/image/produit-22.jpg","asset/image/produit-21.jpg","asset/image/produit-23.jpg","asset/image/produit-24.jpg"], amp:"LED intégré",             dim:"40 cm de diamètre", coul:"Blanc pur",             volt:"220V", mat:"Aluminium blanc",        liv:"Partout au Sénégal", note:4 },
+    { id:63, nom:"Lampe de Chevet Dorée Tactile",   prix:45000,  cat:"Lampes de Chevet",       desc:"Une lampe de chevet tactile aux finitions dorées avec variateur d'intensité intégré. Trois niveaux de luminosité s'activent d'un simple effleurement pour s'adapter à toutes vos activités nocturnes.", imgs:["asset/image/produit-23.jpg","asset/image/produit-24.jpg","asset/image/produit-25.jpg","asset/image/produit-26.jpg"], amp:"E14 x 1 (non incluse)",  dim:"Hauteur 45 cm",     coul:"Or / Blanc",            volt:"220V", mat:"Métal doré + Tissu",     liv:"Partout au Sénégal", note:5 },
+    { id:64, nom:"Lampe de Chevet Marbre Rose",     prix:52000,  cat:"Lampes de Chevet",       desc:"Une lampe de chevet au pied en marbre rose naturel. Son pied en marbre véritable et son abat-jour en lin naturel créent une combinaison luxueuse et naturelle parfaite pour votre table de nuit.", imgs:["asset/image/produit-24.jpg","asset/image/produit-23.jpg","asset/image/produit-25.jpg","asset/image/produit-26.jpg"], amp:"E14 x 1 (non incluse)",  dim:"Hauteur 50 cm",     coul:"Rose / Naturel",        volt:"220V", mat:"Marbre + Lin naturel",   liv:"Partout au Sénégal", note:5 },
+    { id:65, nom:"Lampe de Chevet Minimaliste",     prix:32000,  cat:"Lampes de Chevet",       desc:"Une lampe de chevet au design scandinave épuré avec un pied en bois de hêtre naturel. Légère et élégante, elle s'adapte à tous les styles de chambre et de table de nuit.", imgs:["asset/image/produit-25.jpg","asset/image/produit-23.jpg","asset/image/produit-24.jpg","asset/image/produit-26.jpg"], amp:"E14 x 1 (non incluse)",  dim:"Hauteur 40 cm",     coul:"Bois naturel / Blanc",  volt:"220V", mat:"Hêtre + Métal",          liv:"Partout au Sénégal", note:4 },
+    { id:66, nom:"Lampe de Chevet Cristal",         prix:68000,  cat:"Lampes de Chevet",       desc:"Une lampe de chevet luxueuse au pied en cristal taillé. Ses facettes réfléchissent la lumière pour créer un effet diamant éblouissant sur votre table de nuit.", imgs:["asset/image/produit-26.jpg","asset/image/produit-23.jpg","asset/image/produit-24.jpg","asset/image/produit-25.jpg"], amp:"E14 x 1 (non incluse)",  dim:"Hauteur 55 cm",     coul:"Transparent / Argent",  volt:"220V", mat:"Cristal + Métal argenté", liv:"Partout au Sénégal", note:5 },
+    { id:67, nom:"Lanterne Extérieure Solaire",     prix:38000,  cat:"Luminaires Extérieur",   desc:"Une lanterne solaire élégante pour votre jardin ou terrasse. Elle se recharge automatiquement pendant la journée et s'allume à la tombée de la nuit pour illuminer vos espaces extérieurs sans consommer d'électricité.", imgs:["asset/image/produit-27.jpg","asset/image/produit-28.jpg","asset/image/produit-29.jpg","asset/image/produit-30.jpg"], amp:"LED solaire intégré",    dim:"Hauteur 120 cm",    coul:"Noir / Doré",           volt:"Solaire",mat:"Métal + Verre trempé",   liv:"Partout au Sénégal", note:4 },
+    { id:68, nom:"Applique Extérieure Moderne",     prix:42000,  cat:"Luminaires Extérieur",   desc:"Une applique murale pour extérieur en aluminium traité anti-corrosion. Résistante aux intempéries et aux UV, elle illumine votre entrée ou votre terrasse avec style toute l'année.", imgs:["asset/image/produit-28.jpg","asset/image/produit-27.jpg","asset/image/produit-29.jpg","asset/image/produit-30.jpg"], amp:"E27 x 1 (non incluse)",  dim:"25 x 20 cm",        coul:"Anthracite / Blanc",    volt:"220V", mat:"Aluminium traité",       liv:"Partout au Sénégal", note:4 },
+    { id:69, nom:"Borne Lumineuse Jardin",          prix:56000,  cat:"Luminaires Extérieur",   desc:"Une borne lumineuse pour allée de jardin en acier inoxydable. Elle balise et sécurise vos chemins extérieurs tout en créant une atmosphère féerique dans votre jardin.", imgs:["asset/image/produit-29.jpg","asset/image/produit-27.jpg","asset/image/produit-28.jpg","asset/image/produit-30.jpg"], amp:"E27 x 1 (non incluse)",  dim:"Hauteur 80 cm",     coul:"Argent / Noir",         volt:"220V", mat:"Acier inoxydable",       liv:"Partout au Sénégal", note:4 },
+    { id:70, nom:"Lustre Diamant Prestige",         prix:245000, cat:"Édition Luxe",           desc:"Le summum de notre collection luxe. Ce lustre diamant aux 500 cristaux Swarovski certifiés est une pièce d'exception réservée aux intérieurs les plus prestigieux. Chaque cristal est taillé à la main pour maximiser l'effet lumineux.", imgs:["asset/image/produit-30.jpg","asset/image/produit-31.jpg","asset/image/produit-32.jpg","asset/image/produit-33.jpg"], amp:"E14 x 30 (non incluses)", dim:"120 cm de diamètre",coul:"Or 24 carats / Cristal", volt:"220V", mat:"Or 24 carats + Swarovski", liv:"Partout au Sénégal", note:5 },
+    { id:71, nom:"Lustre Versailles Prestige",      prix:198000, cat:"Édition Luxe",           desc:"Inspiré des lustres du Château de Versailles, ce lustre d'exception en bronze doré et cristal Bohème représente le summum de l'art luminaire français. Une pièce royale pour un intérieur d'exception.", imgs:["asset/image/produit-31.jpg","asset/image/produit-30.jpg","asset/image/produit-32.jpg","asset/image/produit-33.jpg"], amp:"E14 x 36 (non incluses)", dim:"130 cm de diamètre",coul:"Bronze doré / Cristal",  volt:"220V", mat:"Bronze + Cristal Bohème", liv:"Partout au Sénégal", note:5 }
+  ];
+
+  // ================================
+  // CHARGEMENT DU PRODUIT
+  // ================================
+  var params  = new URLSearchParams(window.location.search);
+  var id      = parseInt(params.get('id')) || 1;
+  var produit = null;
+  for (var i = 0; i < produits.length; i++) {
+    if (produits[i].id === id) { produit = produits[i]; break; }
+  }
+  if (!produit) { window.location.href = 'produits.html'; }
+
+  // Remplissage
+  document.getElementById('bc-nom').innerText        = produit.nom;
+  document.getElementById('p-categorie').innerText   = produit.cat;
+  document.getElementById('p-nom').innerText         = produit.nom;
+  document.getElementById('p-prix').innerText        = produit.prix.toLocaleString('fr-FR') + ' FCFA';
+  document.getElementById('p-description').innerText = produit.desc;
+  document.getElementById('p-note').innerText        = '★'.repeat(produit.note) + '☆'.repeat(5 - produit.note);
+  document.getElementById('p-note-text').innerText   = produit.note + ' / 5 étoiles';
+  document.getElementById('p-review-count').innerText = '(' + (produit.note * 18 + 32) + ' avis client)';
+  document.getElementById('s-ampoules').innerText    = produit.amp;
+  document.getElementById('s-dimensions').innerText  = produit.dim;
+  document.getElementById('s-couleur').innerText     = produit.coul;
+  document.getElementById('s-voltage').innerText     = produit.volt;
+  document.getElementById('s-materiau').innerText    = produit.mat;
+  document.getElementById('s-livraison').innerText   = produit.liv;
+  document.title = produit.nom + ' — LumiShop';
+
+  // Image principale
+  var imgPrincipale = document.getElementById('img-principale');
+  imgPrincipale.src = produit.imgs[0];
+  imgPrincipale.alt = produit.nom;
+  imgPrincipale.onerror = function() {
+    this.src = 'https://placehold.co/600x500/C9A84C/white?text=' + encodeURIComponent(produit.nom.substring(0,15));
+  };
+
+  // Miniatures
+  var thumbsContainer = document.getElementById('thumbs-container');
+  for (var j = 0; j < produit.imgs.length; j++) {
+    (function(src, index) {
+      var thumb = document.createElement('img');
+      thumb.src = src;
+      thumb.alt = produit.nom;
+      thumb.onerror = function() {
+        this.src = 'https://placehold.co/120x120/C9A84C/white?text=' + encodeURIComponent(produit.nom.substring(0,15));
+      };
+      if (index === 0) thumb.className = 'active';
+      thumb.onclick = function() {
+        imgPrincipale.src = this.src;
+        var all = thumbsContainer.getElementsByTagName('img');
+        for (var k = 0; k < all.length; k++) all[k].classList.remove('active');
+        this.classList.add('active');
+      };
+      thumbsContainer.appendChild(thumb);
+    })(produit.imgs[j], j);
+  }
+
+  // Prix total initial
+  document.getElementById('total').innerText = produit.prix.toLocaleString('fr-FR');
+
+  // ================================
+  // QUANTITÉ
+  // ================================
+  var qty = 1;
+
+  document.getElementById('moins').onclick = function() {
+    if (qty > 1) {
+      qty--;
+      document.getElementById('qty').innerText   = qty;
+      document.getElementById('total').innerText = (produit.prix * qty).toLocaleString('fr-FR');
+    }
+  };
+
+  document.getElementById('plus').onclick = function() {
+    qty++;
+    document.getElementById('qty').innerText   = qty;
+    document.getElementById('total').innerText = (produit.prix * qty).toLocaleString('fr-FR');
+  };
+
+  // ================================
+  // BOUTON WHATSAPP
+  // ================================
+  document.getElementById('btn-wa').onclick = function() {
+    var prixUnit  = produit.prix.toLocaleString('fr-FR');
+    var prixTotal = (produit.prix * qty).toLocaleString('fr-FR');
+    var msg = 'Bonjour LumiShop ! 👋\n\n'
+      + 'Je souhaite commander :\n\n'
+      + '🛍️ Produit : '       + produit.nom  + '\n'
+      + '🏷️ Catégorie : '     + produit.cat  + '\n'
+      + '💰 Prix unitaire : ' + prixUnit     + ' FCFA\n'
+      + '🔢 Quantité : '      + qty          + '\n'
+      + '💵 Prix total : '    + prixTotal    + ' FCFA\n'
+      + '📐 Dimensions : '    + produit.dim  + '\n'
+      + '🎨 Couleur : '       + produit.coul + '\n'
+      + '🚚 Livraison : '     + produit.liv  + '\n\n'
+      + 'Merci de confirmer ma commande !';
+    window.open('https://wa.me/221778555484?text=' + encodeURIComponent(msg), '_blank');
+  };
+
+  // ================================
+  // PRODUITS SIMILAIRES CLIQUABLES
+  // ================================
+  var similaires = produits.filter(function(p) {
+    return p.cat === produit.cat && p.id !== produit.id;
+  }).slice(0, 4);
+
+  // Si pas assez dans la même catégorie, complète avec d'autres
+  if (similaires.length < 4) {
+    var autres = produits.filter(function(p) {
+      return p.cat !== produit.cat && p.id !== produit.id;
+    }).slice(0, 4 - similaires.length);
+    similaires = similaires.concat(autres);
+  }
+
+  var grid = document.getElementById('similaires-grid');
+  grid.innerHTML = '';
+
+  similaires.forEach(function(p) {
+    var card = document.createElement('a');
+    card.href = 'produit-detail.html?id=' + p.id;
+    card.className = 'similaire-card';
+    card.innerHTML =
+      '<div class="similaire-img-wrapper">'
+      + '<img src="' + p.imgs[0] + '" alt="' + p.nom + '" loading="lazy">'
+      + '<span class="similaire-badge">' + p.cat + '</span>'
+      + '</div>'
+      + '<div class="similaire-card-info">'
+      + '<div class="similaire-stars">' + '★'.repeat(p.note) + '☆'.repeat(5 - p.note) + '</div>'
+      + '<h4>' + p.nom + '</h4>'
+      + '<p class="prix-s">' + p.prix.toLocaleString('fr-FR') + ' FCFA</p>'
+      + '<span class="similaire-btn">🔍 Voir le produit</span>'
+      + '</div>';
+    grid.appendChild(card);
+  });
+
+  // MENU BURGER MOBILE
+  function toggleMenu() {
+    var burger = document.getElementById('burger');
+    var navLinks = document.querySelector('.nav-links');
+    if (!burger || !navLinks) return;
+
+    burger.classList.toggle('open');
+    navLinks.classList.toggle('open');
+    document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+  }
+
+  var liens = document.querySelectorAll('.nav-links a');
+  for (var i = 0; i < liens.length; i++) {
+    liens[i].addEventListener('click', function() {
+      var burger = document.getElementById('burger');
+      var navLinks = document.querySelector('.nav-links');
+      if (!burger || !navLinks) return;
+      burger.classList.remove('open');
+      navLinks.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  }
+
+  document.addEventListener('click', function(e) {
+    var burger = document.getElementById('burger');
+    var navLinks = document.querySelector('.nav-links');
+    if (navLinks && navLinks.classList.contains('open')) {
+      if (!navLinks.contains(e.target) && !burger.contains(e.target)) {
+        burger.classList.remove('open');
+        navLinks.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    }
+  });
+
+  </script>
+</body>
+</html>

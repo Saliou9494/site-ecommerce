@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="LumiShop - Boutique e-commerce de lustres et lampes decoratives premium."
+    />
+    <title>LumiShop | Lustres et lampes decoratives</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="asset/css/style.css" />
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="container nav-wrapper">
+        <a href="index.html" class="logo">Lumi<span>Shop</span></a>
+        <nav aria-label="Navigation principale">
+          <ul class="nav-links" id="nav-links">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="produits.html">Produits</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li>
+              <a
+                href="https://wa.me/221778555484"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="nav-whatsapp"
+              >
+                💬 WhatsApp
+              </a>
+            </li>
+          </ul>
+          <button class="burger" id="burger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <img
+          class="hero-bg"
+          src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=1600&q=80"
+          alt="fond hero lustre"
+        />
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <p class="hero-tag">✨ Nouvelle Collection 2025</p>
+          <h1>Illuminez votre<br /><span>intérieur</span> avec style</h1>
+          <p class="hero-sub">Découvrez notre collection exclusive de lustres et lampes design.<br />Livraison partout au Sénégal.</p>
+          <div class="hero-btns">
+            <a href="produits.html" class="btn-hero-primary">Voir nos lustres</a>
+            <a href="#contact" class="btn-hero-secondary">Nous contacter</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat"><strong>71+</strong><span>Produits</span></div>
+            <div class="stat"><strong>100%</strong><span>Sénégal</span></div>
+            <div class="stat"><strong>5★</strong><span>Satisfaction</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="categories">
+        <div class="section-header">
+          <p class="section-tag">Nos Collections</p>
+          <h2>Trouvez le lustre <span>parfait</span></h2>
+          <p class="section-sub">Des luminaires soigneusement sélectionnés pour sublimer chaque pièce</p>
+        </div>
+        <div class="categories-grid">
+          <a href="produits.html" class="cat-card">
+            <div class="cat-icon">🏛️</div>
+            <h3>Lustres Salon</h3>
+            <p>Élégance et prestige pour votre salon</p>
+            <span class="cat-link">Voir →</span>
+          </a>
+          <a href="produits.html" class="cat-card">
+            <div class="cat-icon">🛏️</div>
+            <h3>Lustres Chambre</h3>
+            <p>Douceur et sérénité pour votre chambre</p>
+            <span class="cat-link">Voir →</span>
+          </a>
+          <a href="produits.html" class="cat-card">
+            <div class="cat-icon">🍽️</div>
+            <h3>Salle à Manger</h3>
+            <p>Lumière parfaite pour vos repas</p>
+            <span class="cat-link">Voir →</span>
+          </a>
+          <a href="produits.html" class="cat-card">
+            <div class="cat-icon">💼</div>
+            <h3>Lustres Bureau</h3>
+            <p>Éclairage optimal pour travailler</p>
+            <span class="cat-link">Voir →</span>
+          </a>
+          <a href="produits.html" class="cat-card">
+            <div class="cat-icon">🧸</div>
+            <h3>Lustres Enfant</h3>
+            <p>Magie et féerie pour vos enfants</p>
+            <span class="cat-link">Voir →</span>
+          </a>
+          <a href="produits.html" class="cat-card">
+            <div class="cat-icon">💡</div>
+            <h3>Lampes Design</h3>
+            <p>Modernité et créativité</p>
+            <span class="cat-link">Voir →</span>
+          </a>
+          <a href="produits.html" class="cat-card">
+            <div class="cat-icon">🌙</div>
+            <h3>Lampes Chevet</h3>
+            <p>Lumière douce pour vos nuits</p>
+            <span class="cat-link">Voir →</span>
+          </a>
+          <a href="produits.html" class="cat-card">
+            <div class="cat-icon">🪟</div>
+            <h3>Appliques Murales</h3>
+            <p>Éclairage mural élégant</p>
+            <span class="cat-link">Voir →</span>
+          </a>
+          <a href="produits.html" class="cat-card">
+            <div class="cat-icon">🌿</div>
+            <h3>Luminaires Extérieur</h3>
+            <p>Illuminez vos espaces extérieurs</p>
+            <span class="cat-link">Voir →</span>
+          </a>
+          <a href="produits.html" class="cat-card">
+            <div class="cat-icon">👑</div>
+            <h3>Édition Luxe</h3>
+            <p>Le summum de l'excellence</p>
+            <span class="cat-link">Voir →</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- SECTION TÉMOIGNAGES -->
+      <section class="temoignages section">
+        <div class="container">
+          <div class="section-header">
+            <p class="section-tag">Témoignages clients</p>
+            <h2>Ils ont choisi <span>LumiShop</span></h2>
+            <p class="section-sub">Avis authentiques de clients satisfaits qui ont transformé leur intérieur avec nos luminaires.</p>
+          </div>
+
+          <div class="temoignages-grid">
+            <article class="testimonial-card">
+              <p>« Service rapide, produit magnifique et très bonne qualité. Le lustre a donné une nouvelle ambiance à mon salon ! »</p>
+              <div class="testimonial-meta">
+                <strong>Fatou N.</strong>
+                <span>★★★★☆</span>
+              </div>
+            </article>
+            <article class="testimonial-card">
+              <p>« J'ai adoré la finition dorée et la livraison a été super rapide. Je recommande à 100% ! »</p>
+              <div class="testimonial-meta">
+                <strong>Aliou S.</strong>
+                <span>★★★★★</span>
+              </div>
+            </article>
+            <article class="testimonial-card">
+              <p>« Très bon contact WhatsApp, excellent suivi et le produit correspondait exactement à la photo. Merci LumiShop ! »</p>
+              <div class="testimonial-meta">
+                <strong>Aïssatou D.</strong>
+                <span>★★★★★</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- BANDEAU DÉFILANT EN HAUT -->
+      <div class="bandeau-top">
+        <div class="bandeau-track">
+          <span>🚚 Livraison -20% sur toute commande &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;</span>
+          <span>✨ Nouveaux lustres disponibles &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;</span>
+          <span>💛 Achetez 2 lustres et bénéficiez de -20% sur la livraison &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;</span>
+          <span>📦 Livraison rapide partout au Sénégal &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;</span>
+          <span>🎁 Offre spéciale : -20% sur la livraison dès aujourd'hui &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;</span>
+          <span>⭐ Plus de 500 clients satisfaits au Sénégal &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;</span>
+          <span>💬 Commandez via WhatsApp en 2 minutes &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;</span>
+          <span>🏆 Qualité premium au meilleur prix &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;</span>
+          <span>🚚 Livraison -20% sur toute commande &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;</span>
+          <span>✨ Nouveaux lustres disponibles &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;</span>
+          <span>💛 Achetez 2 lustres et bénéficiez de -20% sur la livraison &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;</span>
+          <span>📦 Livraison rapide partout au Sénégal &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;</span>
+          <span>🎁 Offre spéciale : -20% sur la livraison dès aujourd'hui &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;</span>
+          <span>⭐ Plus de 500 clients satisfaits au Sénégal &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;</span>
+          <span>💬 Commandez via WhatsApp en 2 minutes &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;</span>
+          <span>🏆 Qualité premium au meilleur prix &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;</span>
+        </div>
+      </div>
+
+      <!-- SECTION BANNIÈRE PROMO -->
+      <section class="banniere-promo">
+        <div class="banniere-content">
+
+          <!-- TEXTE GAUCHE -->
+          <div class="banniere-text">
+            <p class="section-tag">🔥 Offre Limitée</p>
+            <h2>Bénéficiez de<br><span>-20% sur la livraison</span><br>partout au Sénégal !</h2>
+            <p>Commandez dès maintenant via WhatsApp et profitez de notre réduction exclusive sur la livraison. Valable sur toutes les commandes passées aujourd'hui !</p>
+            <div class="banniere-badges">
+              <span class="badge-promo">✅ Offre valable aujourd'hui</span>
+              <span class="badge-promo">✅ Partout au Sénégal</span>
+              <span class="badge-promo">✅ Réponse en 5 min</span>
+            </div>
+            <a href="https://wa.me/221778555484?text=Bonjour LumiShop ! Je veux profiter de la réduction -20% sur la livraison !" target="_blank" class="btn-hero-primary">
+              💬 Profiter de l'offre maintenant
+            </a>
+          </div>
+
+          <!-- STATS DROITE -->
+          <div class="banniere-stats">
+            <div class="bstat">
+              <strong>-20%</strong>
+              <span>Sur la livraison</span>
+            </div>
+            <div class="bstat">
+              <strong>500+</strong>
+              <span>Clients satisfaits</span>
+            </div>
+            <div class="bstat">
+              <strong>71+</strong>
+              <span>Modèles disponibles</span>
+            </div>
+            <div class="bstat">
+              <strong>24h</strong>
+              <span>Délai de livraison</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- SLIDER DE MESSAGES DÉFILANTS -->
+        <div class="promo-slider">
+          <div class="promo-slide active">
+            <span class="promo-emoji">🚚</span>
+            <strong>Livraison -20%</strong> sur toutes vos commandes passées via WhatsApp !
+          </div>
+          <div class="promo-slide">
+            <span class="promo-emoji">💛</span>
+            <strong>Achetez 2 lustres</strong> et économisez -20% sur vos frais de livraison !
+          </div>
+          <div class="promo-slide">
+            <span class="promo-emoji">🎁</span>
+            <strong>Offre exclusive :</strong> commandez aujourd'hui et bénéficiez de -20% sur la livraison !
+          </div>
+          <div class="promo-slide">
+            <span class="promo-emoji">⭐</span>
+            <strong>Plus de 500 clients</strong> nous font confiance partout au Sénégal !
+          </div>
+          <div class="promo-slide">
+            <span class="promo-emoji">🏆</span>
+            <strong>Qualité premium</strong> au meilleur prix avec livraison rapide en 24h !
+          </div>
+          <div class="promo-slide">
+            <span class="promo-emoji">💬</span>
+            <strong>Commandez en 2 minutes</strong> sur WhatsApp et recevez votre lustre chez vous !
+          </div>
+        </div>
+
+      </section>
+
+      <section class="produits-vedettes section">
+        <div class="container">
+          <h2 class="section-title">Produits Vedettes</h2>
+          <div class="products-grid">
+            <div class="product-card">
+              <a href="produit-detail.html?id=1">
+                <img src="asset/image/produit-1.jpg" alt="Lustre Doré Palace" loading="lazy" />
+              </a>
+              <div class="product-card-info">
+                <div class="stars">★★★★★</div>
+                <h3>Lustre Doré Palace</h3>
+                <p class="price">85 000 FCFA</p>
+                <a href="produit-detail.html?id=1" class="btn-card-wa">🔍 Voir & Commander</a>
+              </div>
+            </div>
+
+            <div class="product-card">
+              <a href="produit-detail.html?id=2">
+                <img src="asset/image/produit-2.jpg" alt="Lustre Bohème Rotin" loading="lazy" />
+              </a>
+              <div class="product-card-info">
+                <div class="stars">★★★★☆</div>
+                <h3>Lustre Bohème Rotin</h3>
+                <p class="price">62 000 FCFA</p>
+                <a href="produit-detail.html?id=2" class="btn-card-wa">🔍 Voir & Commander</a>
+              </div>
+            </div>
+
+            <div class="product-card">
+              <a href="produit-detail.html?id=3">
+                <img src="asset/image/produit-3.jpg" alt="Lustre Cristal Élégance" loading="lazy" />
+              </a>
+              <div class="product-card-info">
+                <div class="stars">★★★★★</div>
+                <h3>Lustre Cristal Élégance</h3>
+                <p class="price">120 000 FCFA</p>
+                <a href="produit-detail.html?id=3" class="btn-card-wa">🔍 Voir & Commander</a>
+              </div>
+            </div>
+
+            <div class="product-card">
+              <a href="produit-detail.html?id=4">
+                <img src="asset/image/produit-4.jpg" alt="Lustre Industriel Noir" loading="lazy" />
+              </a>
+              <div class="product-card-info">
+                <div class="stars">★★★★☆</div>
+                <h3>Lustre Industriel Noir</h3>
+                <p class="price">74 000 FCFA</p>
+                <a href="produit-detail.html?id=4" class="btn-card-wa">🔍 Voir & Commander</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <section id="contact" class="contact-section-v2">
+      <div class="quick-info-band">
+        <div class="container quick-info-grid">
+          <article class="quick-info-item">
+            <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+            <div>
+              <h3>Adresse</h3>
+              <p>Dakar, Senegal</p>
+            </div>
+          </article>
+          <article class="quick-info-item">
+            <i class="fa-solid fa-phone" aria-hidden="true"></i>
+            <div>
+              <h3>Telephone</h3>
+              <p><a href="tel:+221778555484">+221 77 855 54 84</a></p>
+            </div>
+          </article>
+          <article class="quick-info-item">
+            <i class="fa-regular fa-clock" aria-hidden="true"></i>
+            <div>
+              <h3>Horaires</h3>
+              <p>Lun - Sam : 8h00 - 20h00</p>
+            </div>
+          </article>
+          <article class="quick-info-item">
+            <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+            <div>
+              <h3>WhatsApp</h3>
+              <p>
+                <a href="https://wa.me/221778555484" target="_blank" rel="noopener noreferrer"
+                  >Disponible maintenant</a
+                >
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="contact-main-wrap">
+        <div class="container contact-main-grid">
+          <article class="contact-main-card">
+            <h2>Nos Coordonnees</h2>
+            <ul class="contact-detailed-list">
+              <li><strong>📍 Adresse complete :</strong> Dakar, Senegal</li>
+              <li>
+                <strong>📞 Telephone :</strong>
+                <a href="tel:+221778555484">+221 77 855 54 84</a>
+              </li>
+              <li>
+                <strong>💬 WhatsApp :</strong>
+                <a href="https://wa.me/221778555484" target="_blank" rel="noopener noreferrer"
+                  >+221 77 855 54 84</a
+                >
+              </li>
+              <li>
+                <strong>📧 Email :</strong>
+                <a href="mailto:mbayesaliou14@gmail.com">mbayesaliou14@gmail.com</a>
+              </li>
+            </ul>
+            <div class="opening-hours">
+              <h3>Horaires d ouverture :</h3>
+              <p>Lundi - Vendredi : 8h00 - 20h00</p>
+              <p>Samedi : 9h00 - 18h00</p>
+              <p>Dimanche : Ferme</p>
+            </div>
+            <h3 class="follow-title">Suivez-nous</h3>
+            <div class="social-buttons">
+              <a
+                class="social-btn facebook"
+                href="https://www.facebook.com/LumiShop"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
+                Facebook
+              </a>
+              <a
+                class="social-btn tiktok"
+                href="https://www.tiktok.com/@LumiShop"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i class="fa-brands fa-tiktok" aria-hidden="true"></i>
+                TikTok
+              </a>
+              <a
+                class="social-btn instagram"
+                href="https://www.instagram.com/LumiShop"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+                Instagram
+              </a>
+            </div>
+          </article>
+
+          <article class="contact-main-card">
+            <h2>Passez votre commande</h2>
+            <p class="form-subtitle">
+              Remplissez le formulaire, nous vous repondons en moins de 5 min sur
+              WhatsApp !
+            </p>
+            <form id="order-form" novalidate>
+              <label for="full-name">Nom complet</label>
+              <input
+                id="full-name"
+                name="fullName"
+                type="text"
+                placeholder="Votre nom complet"
+                required
+              />
+              <p id="full-name-error" class="field-error"></p>
+
+              <label for="phone-number">Numero de telephone</label>
+              <input
+                id="phone-number"
+                name="phoneNumber"
+                type="tel"
+                placeholder="+221 XX XXX XX XX"
+                required
+              />
+              <p id="phone-number-error" class="field-error"></p>
+
+              <label for="product-choice">Produit souhaite</label>
+              <select id="product-choice" name="productChoice" required>
+                <option value="">-- Choisissez un produit --</option>
+                <option>Lustre Dore Palace - 85 000 FCFA</option>
+                <option>Lustre Boheme Rotin - 62 000 FCFA</option>
+                <option>Lustre Cristal Elegance - 120 000 FCFA</option>
+                <option>Lustre Industriel Noir - 74 000 FCFA</option>
+                <option>Lustre Nordique Blanc - 55 000 FCFA</option>
+                <option>Lustre Romantique Rose - 48 000 FCFA</option>
+                <option>Lustre Minimaliste Gris - 52 000 FCFA</option>
+                <option>Lustre Enfant Etoile - 38 000 FCFA</option>
+                <option>Lampe Design Tentacule - 95 000 FCFA</option>
+                <option>Lampe Arc Doree - 78 000 FCFA</option>
+                <option>Lampe Bubble Transparente - 67 000 FCFA</option>
+                <option>Lampe Vintage Edison - 42 000 FCFA</option>
+                <option>Applique Marbre Blanc - 35 000 FCFA</option>
+                <option>Applique Laiton Classique - 41 000 FCFA</option>
+                <option>Applique Ronde Noire - 29 000 FCFA</option>
+                <option>Applique Bambou Naturel - 33 000 FCFA</option>
+              </select>
+              <p id="product-choice-error" class="field-error"></p>
+
+              <label for="extra-message">Message complementaire</label>
+              <textarea
+                id="extra-message"
+                name="extraMessage"
+                rows="4"
+                placeholder="Ex: Je voudrais plus d informations sur la livraison..."
+              ></textarea>
+
+              <button id="send-order-btn" type="button" class="submit-order-btn">
+                Envoyer ma commande sur WhatsApp
+              </button>
+              <a
+                class="direct-whatsapp-btn"
+                href="https://wa.me/221778555484"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                💬 Discuter directement sur WhatsApp
+              </a>
+              <p class="direct-whatsapp-note">
+                Réponse garantie en moins de 5 min
+              </p>
+            </form>
+          </article>
+
+          <article class="contact-main-card">
+            <h2>Notre localisation</h2>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d124272.43!2d-17.4676!3d14.7167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xec172f5b3c5b011%3A0xb5161837ef6d01cd!2sDakar%2C%20S%C3%A9n%C3%A9gal!5e0!3m2!1sfr!2sfr"
+              width="100%"
+              height="250"
+              style="border: 0; border-radius: 12px"
+              allowfullscreen=""
+              loading="lazy"
+              title="Carte Dakar Senegal"
+            ></iframe>
+            <a
+              class="btn btn-primary route-btn"
+              href="https://www.google.com/maps?q=Dakar,Senegal"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Obtenir l itineraire</a
+            >
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <p class="footer-logo">LumiShop</p>
+        <nav class="footer-links" aria-label="Liens rapides">
+          <a href="index.html">Accueil</a>
+          <a href="produits.html">Produits</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <div class="footer-socials">
+          <a href="https://www.facebook.com/LumiShop" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
+          </a>
+          <a href="https://www.tiktok.com/@LumiShop" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+            <i class="fa-brands fa-tiktok" aria-hidden="true"></i>
+          </a>
+          <a href="https://www.instagram.com/LumiShop" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+          </a>
+        </div>
+        <p class="footer-whatsapp">
+          WhatsApp :
+          <a href="https://wa.me/221778555484" target="_blank" rel="noopener noreferrer"
+            >+221 77 855 54 84</a
+          >
+        </p>
+        <p class="footer-copy">© 2025 LumiShop - Tous droits reserves</p>
+      </div>
+    </footer>
+
+    <a
+      class="floating-whatsapp"
+      href="https://wa.me/221778555484"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Contacter LumiShop sur WhatsApp"
+      title="WhatsApp"
+    >
+      W
+    </a>
+
+    <script>
+      const fullNameInput = document.getElementById("full-name");
+      const phoneInput = document.getElementById("phone-number");
+      const productSelect = document.getElementById("product-choice");
+      const extraMessageInput = document.getElementById("extra-message");
+      const sendOrderButton = document.getElementById("send-order-btn");
+
+      const fullNameError = document.getElementById("full-name-error");
+      const phoneError = document.getElementById("phone-number-error");
+      const productError = document.getElementById("product-choice-error");
+
+      function setFieldError(element, message) {
+        element.textContent = message;
+      }
+
+      function clearErrors() {
+        setFieldError(fullNameError, "");
+        setFieldError(phoneError, "");
+        setFieldError(productError, "");
+      }
+
+      sendOrderButton.addEventListener("click", function () {
+        clearErrors();
+
+        const fullName = fullNameInput.value.trim();
+        const phoneNumber = phoneInput.value.trim();
+        const selectedProduct = productSelect.value.trim();
+        const extraMessage = extraMessageInput.value.trim();
+
+        let hasError = false;
+
+        if (!fullName) {
+          setFieldError(fullNameError, "Le nom complet est obligatoire.");
+          hasError = true;
+        }
+
+        if (!phoneNumber) {
+          setFieldError(phoneError, "Le numero de telephone est obligatoire.");
+          hasError = true;
+        }
+
+        if (!selectedProduct) {
+          setFieldError(productError, "Veuillez choisir un produit.");
+          hasError = true;
+        }
+
+        if (hasError) {
+          return;
+        }
+
+        const finalMessage = `Nom : ${fullName}
+Téléphone : ${phoneNumber}
+Produit : ${selectedProduct}
+Message : ${extraMessage || "Aucun message complémentaire"}`;
+
+        const whatsappUrl =
+          "https://wa.me/221778555484?text=" + encodeURIComponent(finalMessage);
+        window.open(whatsappUrl, "_blank");
+      });
+
+      // SLIDER MESSAGES PROMO
+      var slides = document.querySelectorAll('.promo-slide');
+      var currentSlide = 0;
+
+      function nextSlide() {
+        slides[currentSlide].classList.remove('active');
+        slides[currentSlide].classList.add('exit');
+        setTimeout(function() {
+          slides[currentSlide].classList.remove('exit');
+          currentSlide = (currentSlide + 1) % slides.length;
+          slides[currentSlide].classList.add('active');
+        }, 500);
+      }
+
+      setInterval(nextSlide, 3000);
+
+      // MENU BURGER MOBILE
+      function toggleMenu() {
+        var burger = document.getElementById('burger');
+        var navLinks = document.querySelector('.nav-links');
+        if (!burger || !navLinks) return;
+
+        burger.classList.toggle('open');
+        navLinks.classList.toggle('open');
+        document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+      }
+
+      var liens = document.querySelectorAll('.nav-links a');
+      for (var i = 0; i < liens.length; i++) {
+        liens[i].addEventListener('click', function() {
+          var burger = document.getElementById('burger');
+          var navLinks = document.querySelector('.nav-links');
+          if (!burger || !navLinks) return;
+          burger.classList.remove('open');
+          navLinks.classList.remove('open');
+          document.body.style.overflow = '';
+        });
+      }
+
+      document.addEventListener('click', function(e) {
+        var burger = document.getElementById('burger');
+        var navLinks = document.querySelector('.nav-links');
+        if (navLinks && navLinks.classList.contains('open')) {
+          if (!navLinks.contains(e.target) && !burger.contains(e.target)) {
+            burger.classList.remove('open');
+            navLinks.classList.remove('open');
+            document.body.style.overflow = '';
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
