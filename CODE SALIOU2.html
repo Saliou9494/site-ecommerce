@@ -46,99 +46,13 @@
 
       <section class="section">
         <div class="container">
-          <h2 class="section-title">Nos Categories</h2>
-          <div class="grid categories-grid">
-            <article class="category-card">
-              <h3>Lustres Salon</h3>
-              <p>
-                Pieces centrales majestueuses pour offrir cachet et chaleur a
-                votre salon.
-              </p>
-            </article>
-            <article class="category-card">
-              <h3>Lustres Chambre</h3>
-              <p>
-                Modeles doux et raffinés pour une ambiance intime et apaisante.
-              </p>
-            </article>
-            <article class="category-card">
-              <h3>Lampes Design</h3>
-              <p>
-                Lignes contemporaines et finitions premium pour un style unique.
-              </p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="container">
           <h2 class="section-title">Produits Vedettes</h2>
-          <div class="grid products-grid">
-            <article class="product-card">
-              <div class="product-image">Image produit 1</div>
-              <div class="product-info">
-                <h3 class="product-name">Lustre Crystal Royal</h3>
-                <p class="product-price">145000 FCFA</p>
-                <a
-                  class="btn btn-whatsapp"
-                  href="https://wa.me/221778555484?text=Bonjour, je souhaite commander : Lustre Crystal Royal - 145000 FCFA"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Commander sur WhatsApp
-                </a>
-              </div>
-            </article>
-
-            <article class="product-card">
-              <div class="product-image">Image produit 2</div>
-              <div class="product-info">
-                <h3 class="product-name">Lustre Horizon Dore</h3>
-                <p class="product-price">98000 FCFA</p>
-                <a
-                  class="btn btn-whatsapp"
-                  href="https://wa.me/221778555484?text=Bonjour, je souhaite commander : Lustre Horizon Dore - 98000 FCFA"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Commander sur WhatsApp
-                </a>
-              </div>
-            </article>
-
-            <article class="product-card">
-              <div class="product-image">Image produit 3</div>
-              <div class="product-info">
-                <h3 class="product-name">Lampe Aura Minimal</h3>
-                <p class="product-price">52000 FCFA</p>
-                <a
-                  class="btn btn-whatsapp"
-                  href="https://wa.me/221778555484?text=Bonjour, je souhaite commander : Lampe Aura Minimal - 52000 FCFA"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Commander sur WhatsApp
-                </a>
-              </div>
-            </article>
-
-            <article class="product-card">
-              <div class="product-image">Image produit 4</div>
-              <div class="product-info">
-                <h3 class="product-name">Suspension Elegance Noire</h3>
-                <p class="product-price">76000 FCFA</p>
-                <a
-                  class="btn btn-whatsapp"
-                  href="https://wa.me/221778555484?text=Bonjour, je souhaite commander : Suspension Elegance Noire - 76000 FCFA"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Commander sur WhatsApp
-                </a>
-              </div>
-            </article>
+          <div class="filtres-wrapper">
+            <div class="filtres-info">
+              <span>Affichage : <strong id="nb-produits-affiches">0</strong> produits</span>
+            </div>
           </div>
+          <div id="catalogue-grid" class="grid products-grid"></div>
         </div>
       </section>
     </main>
@@ -250,5 +164,66 @@
     >
       W
     </a>
+
+    <script>
+      var catalogue = [
+        { id: 1, nom: 'Lustre Crystal Royal', prix: 145000, cat: 'Lustres Salon', img: 'asset/image/produit-1.jpg', note: 5 },
+        { id: 2, nom: 'Lustre Horizon Dore', prix: 98000, cat: 'Lustres Salon', img: 'asset/image/produit-2.jpg', note: 4 },
+        { id: 3, nom: 'Lampe Aura Minimal', prix: 52000, cat: 'Lampes Design', img: 'asset/image/produit-3.jpg', note: 4 },
+        { id: 4, nom: 'Suspension Elegance Noire', prix: 76000, cat: 'Lustres Salon', img: 'asset/image/produit-4.jpg', note: 5 }
+      ];
+
+      function afficherProduits() {
+        var grid = document.getElementById('catalogue-grid');
+        if (!grid) return;
+        grid.innerHTML = '';
+
+        var compteur = document.getElementById('nb-produits-affiches');
+        if (compteur) compteur.innerText = catalogue.length;
+
+        for (var j = 0; j < catalogue.length; j++) {
+          (function(p) {
+            var etoiles = '★'.repeat(p.note) + '☆'.repeat(5 - p.note);
+            var card = document.createElement('div');
+            card.className = 'product-card';
+
+            var img = document.createElement('a');
+            img.href = 'produit-detail.html?id=' + p.id;
+            var imgEl = document.createElement('img');
+            imgEl.src = p.img;
+            imgEl.alt = p.nom;
+            imgEl.loading = 'lazy';
+            imgEl.onerror = function() {
+              this.src = 'https://placehold.co/400x400/C9A84C/white?text=' + encodeURIComponent(p.nom.substring(0, 12));
+            };
+            img.appendChild(imgEl);
+            card.appendChild(img);
+
+            var info = document.createElement('div');
+            info.className = 'product-card-info';
+            info.innerHTML =
+              '<div class="stars">' + etoiles + '</div>' +
+              '<h3>' + p.nom + '</h3>' +
+              '<p class="price">' + p.prix.toLocaleString('fr-FR') + ' FCFA</p>' +
+              '<a href="produit-detail.html?id=' + p.id + '" class="btn-voir-detail">' +
+              '🔍 Voir les détails & Commander' +
+              '</a>';
+            card.appendChild(info);
+            grid.appendChild(card);
+
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            setTimeout(function() {
+              card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+              card.style.opacity = '1';
+              card.style.transform = 'translateY(0)';
+            }, j * 50);
+
+          })(catalogue[j]);
+        }
+      }
+
+      afficherProduits();
+    </script>
   </body>
 </html>

@@ -69,6 +69,12 @@ ul {
   display: inline-block;
   border: none;
   border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+}
+
 .btn:hover {
   transform: translateY(-2px);
 }
@@ -1052,6 +1058,12 @@ ul {
   gap: 1rem;
 }
 
+.categories-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(5, 1fr);
+}
+
 .category-card {
   background: #fff;
   border: 1px solid #ebebeb;
@@ -1880,7 +1892,9 @@ ul {
 }
 
 @media (min-width: 1025px) {
-}
+  .categories-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 768px) {
@@ -2080,7 +2094,19 @@ ul {
   }
 
   /* FILTRES */
-  
+  .filtres-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .filtres-btns {
+    gap: 8px;
+  }
+  .filtre-btn {
+    padding: 8px 14px;
+    font-size: 0.82rem;
+  }
+
   /* DETAIL PRODUIT */
   .detail-wrapper {
     grid-template-columns: 1fr 1fr;
@@ -2488,6 +2514,14 @@ ul {
   }
 
   /* CATÉGORIES */
+  .categories-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .cat-icon { font-size: 1.5rem; }
+  .cat-card h3 { font-size: 0.82rem; }
+  .cat-link { font-size: 0.75rem; }
+
   /* PRODUITS */
   .products-grid {
     grid-template-columns: 1fr;
@@ -2502,6 +2536,14 @@ ul {
   .bstat strong { font-size: 1.3rem; }
 
   /* FILTRES */
+  .filtres-btns {
+    grid-template-columns: 1fr 1fr;
+  }
+  .filtre-btn {
+    font-size: 0.72rem;
+    padding: 8px 6px;
+  }
+
   /* CATALOGUE GRILLE */
   #catalogue-grid {
     grid-template-columns: 1fr;

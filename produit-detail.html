@@ -281,7 +281,7 @@
 
     <!-- COLONNE DROITE : INFOS -->
     <div class="produit-info">
-      <span class="badge" id="p-categorie"></span>
+      <span class="badge" id="produit-categorie"></span>
       <h1 id="p-nom"></h1>
       <div class="prix" id="p-prix"></div>
       <div class="etoiles" id="p-note"></div>
@@ -434,7 +434,7 @@
 
   // Remplissage
   document.getElementById('bc-nom').innerText        = produit.nom;
-  document.getElementById('p-categorie').innerText   = produit.cat;
+  document.getElementById('produit-categorie').innerText = produit.cat;
   document.getElementById('p-nom').innerText         = produit.nom;
   document.getElementById('p-prix').innerText        = produit.prix.toLocaleString('fr-FR') + ' FCFA';
   document.getElementById('p-description').innerText = produit.desc;
